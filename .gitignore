@@ -1,0 +1,43 @@
+# Build dirrectory
+/console_menu/.vs/
+/console_menu/__pycache__/
+/console_menu/env/
+
+/console_menu.egg-info/
+
+# VS project files
+*.pyproj
+*.sln
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
