@@ -24,6 +24,7 @@ def test_menu():
     settings_menu.add_action_item("Изменить параметр 1", lambda: print("Изменяем параметр 1..."))
     settings_menu.add_action_item("Изменить параметр 2", lambda: print("Изменяем параметр 2..."))
     settings_menu.add_action_item("Сбросить настройки", lambda: print("Сброс настроек..."))
+    settings_menu.add_action_item("Закрыть настроек", lambda: settings_menu.stop())
 
     # Добавляем пункты в меню информации
     info_menu.add_action_item("О программе", lambda: print("Консольное меню v1.0\nРазработано на Python"))

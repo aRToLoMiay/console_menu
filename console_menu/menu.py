@@ -2,7 +2,7 @@ import os
 import sys
 import msvcrt
 
-from console_menu.menu_item import *
+from console_menu.menu_item import MenuItem
 
 
 class Menu:
@@ -20,12 +20,13 @@ class Menu:
         self.items = []
         self.selected_index = 0
         self.parent = parent_menu
+        self.running = False
 
 
     def run(self):
-        running = True
+        self.running = True
 
-        while running:
+        while self.running:
             self._display()
 
             action = self._get_action()
@@ -52,9 +53,13 @@ class Menu:
                 if self.parent is not None:
                     return
                 if self._confirm_exit() == self.Actions.ENTER:
-                    running = False
+                    self.running = False
                 else:
                     self._display()
+
+
+    def stop(self):
+        self.running = False
 
 
     def add_item(self, name, action=None, sub_menu=None):
