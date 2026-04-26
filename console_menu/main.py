@@ -1,42 +1,41 @@
 from menu import Menu
 
-# Пример использования
+# Example function.
 def action1():
-    print("Выполняется действие 1")
+    print("Execute option 1")
 
 def test_menu():
-    # Создаем главное меню
-    main_menu = Menu("Главное меню")
+    # Create main menu.
+    main_menu = Menu("Main menu")
 
-    # Создаем подменю
-    settings_menu = Menu("Настройки", main_menu)
-    info_menu = Menu("Информация", main_menu)
+    # Create submenus.
+    settings_menu = Menu("Settings", main_menu)
+    info_menu = Menu("Information", main_menu)
 
-    # Добавляем пункты в главное меню
-    main_menu.add_action_item("Пункт 1", action1)
+    # Add main menu suboptions.
+    main_menu.add_action_item("Option 1", action1)
+    main_menu.add_action_item("Option 2", lambda: print("Execute option 2"))
 
-    main_menu.add_action_item("Пункт 2", lambda: print("Выполняется действие 2"))
+    main_menu.add_submenu_item("Settings", settings_menu)
+    main_menu.add_submenu_item("Information", info_menu)
 
-    main_menu.add_submenu_item("Настройки", settings_menu)
-    main_menu.add_submenu_item("Информация", info_menu)
+    # Add settings suboprions.
+    settings_menu.add_action_item("Change parameter 1", lambda: print("Changing parameter 1..."))
+    settings_menu.add_action_item("Change parameter 2", lambda: print("Changing parameter 2..."))
+    settings_menu.add_action_item("Reset settnigs", lambda: print("Reset settings..."))
+    settings_menu.add_action_item("Close settings menu", lambda: settings_menu.stop())
 
-    # Добавляем пункты в меню настроек
-    settings_menu.add_action_item("Изменить параметр 1", lambda: print("Изменяем параметр 1..."))
-    settings_menu.add_action_item("Изменить параметр 2", lambda: print("Изменяем параметр 2..."))
-    settings_menu.add_action_item("Сбросить настройки", lambda: print("Сброс настроек..."))
-    settings_menu.add_action_item("Закрыть настроек", lambda: settings_menu.stop())
+    # Add information suboptions.
+    info_menu.add_action_item("About", lambda: print("Console menu v1.0"))
+    info_menu.add_action_item("Help", lambda: print("Controls:\n"
+        "Arrow Up/Down or W/S - navigation\n"
+        "Enter or Space - choose menu option\n"
+        "Esc - back/exit"))
 
-    # Добавляем пункты в меню информации
-    info_menu.add_action_item("О программе", lambda: print("Консольное меню v1.0\nРазработано на Python"))
-    info_menu.add_action_item("Помощь", lambda: print("Управление:\n"
-        "Стрелки Вверх/Вниз или W/S - навигация\n"
-        "Enter или Space - выбор пункта\n"
-        "Esc - выход/возврат"))
+    # Delete menu option demonstration (uncomment for testing).
+    # main_menu.remove_item("Option 1")
 
-    # Демонстрация удаления пункта меню (раскомментировать для тестирования)
-    # main_menu.remove_item("Пункт 1")
-
-    # Запускаем главное меню
+    # Start main menu.
     main_menu.run()
 
 
