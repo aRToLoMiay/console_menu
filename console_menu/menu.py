@@ -2,7 +2,7 @@ import os
 import sys
 import msvcrt
 
-from .menu_item import *
+from console_menu.menu_item import *
 
 
 class Menu:
@@ -43,8 +43,10 @@ class Menu:
                     self.selected_index = 0
 
             elif action == self.Actions.ENTER:
+                self._clear_screen()
                 if self.selected_index < len(self.items):
                     self.items[self.selected_index].execute(self)
+                self._display()
 
             elif action == self.Actions.ESC:
                 if self.parent is not None:
