@@ -1,15 +1,24 @@
 from menu import Menu
 
-# Example function.
+import msvcrt
+
+
 def action1():
     print("Execute option 1")
+    msvcrt.getch()
+
+
+def setting_action1():
+    print("Changing parameter 1...")
+    msvcrt.getch()
+
 
 def test_menu():
     # Create main menu.
     main_menu = Menu("Main menu")
 
     # Create submenus.
-    settings_menu = Menu("Settings", main_menu)
+    settings_menu = Menu("Settings", main_menu, close_mode=True)
     info_menu = Menu("Information", main_menu)
 
     # Add main menu suboptions.
@@ -20,7 +29,7 @@ def test_menu():
     main_menu.add_submenu_item("Information", info_menu)
 
     # Add settings suboprions.
-    settings_menu.add_action_item("Change parameter 1", lambda: print("Changing parameter 1..."))
+    settings_menu.add_action_item("Change parameter 1", setting_action1)
     settings_menu.add_action_item("Change parameter 2", lambda: print("Changing parameter 2..."))
     settings_menu.add_action_item("Reset settnigs", lambda: print("Reset settings..."))
     settings_menu.add_action_item("Close settings menu", lambda: settings_menu.stop())

@@ -15,18 +15,17 @@ class Menu:
         EMPTY   = 6 # No action.
 
 
-    def __init__(self, title, parent_menu=None):
+    def __init__(self, title, parent_menu=None, close_mode=False):
         self.title = title
         self.items = []
         self.selected_index = 0
         self.parent = parent_menu
-        self.running = False
+        self.close_mode = close_mode
 
 
     def run(self):
-        self.running = True
-
-        while self.running:
+        running = True
+        while running:
             self._display()
 
             action = self._get_action()
@@ -44,18 +43,10 @@ class Menu:
                     self.selected_index = 0
 
             elif action == self.Actions.ENTER:
-                self._clear_screen()
-                if self.selected_index < len(self.items):
-                    self.items[self.selected_index].execute(self)
-                self._display()
+                running = self._enter_action()
 
             elif action == self.Actions.ESC:
-                if self.parent is not None:
-                    return
-                if self._confirm_exit() == self.Actions.ENTER:
-                    self.running = False
-                else:
-                    self._display()
+                running = self._esc_action()
 
 
     def stop(self):
@@ -88,6 +79,34 @@ class Menu:
 
     def set_parent(self, parent_menu):
         self.parent = parent_menu
+
+
+    def _enter_action(self):
+        self._clear_screen()
+
+        if self.selected_index < len(self.items):
+            self.items[self.selected_index].execute(self)
+        else:
+            return True
+
+        if self.close_mode:
+            return False
+
+        if self.items[self.selected_index].get_type() == "action":
+            print("\Press any key to continue...")
+            msvcrt.getch()
+        self._display()
+        return True
+
+
+    def _esc_action(self):
+        if self.parent is not None:
+            return False
+        if self._confirm_exit() == self.Actions.ENTER:
+            return False
+        else:
+            self._display()
+        return True
 
 
     def _display(self):
