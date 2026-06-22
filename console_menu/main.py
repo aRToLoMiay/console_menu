@@ -1,4 +1,5 @@
 from menu import Menu
+from file_menu import create_file_menu
 
 import msvcrt
 
@@ -41,12 +42,33 @@ def test_menu():
         "Enter or Space - choose menu option\n"
         "Esc - back/exit"))
 
-    # Delete menu option demonstration (uncomment for testing).
-    # main_menu.remove_item("Option 1")
-
     # Start main menu.
     main_menu.run()
 
 
+selected_file = None
+def test_file_menu():
+    # Collect files information.
+    from path_processor import get_app_path
+    path = get_app_path()
+    file_types = ('.py')
+
+    # Create function for text extraction from menu.
+    def file_action(text):
+        def handler():
+            global selected_file
+            selected_file = text
+        return handler
+    action = file_action
+
+    # Get and run menu.
+    menu = create_file_menu(menu_title="py-files",
+                            action=action,
+                            path=path,
+                            file_types=file_types)
+    menu.run()
+    print(f"Choosed option: {selected_file}")
+
+
 if __name__ == "__main__":
-    test_menu()
+    test_file_menu()
